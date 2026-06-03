@@ -1,13 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
-    console.log("BUTTON CLICKED");
+  const navigate = useNavigate();
 
+  const handleLogin = async () => {
     try {
       const res = await axios.post(
         "https://job-tracker-api-bupk.onrender.com/login",
@@ -17,24 +18,19 @@ function Login() {
         }
       );
 
-      console.log("LOGIN RESPONSE:", res.data);
-
-      localStorage.setItem(
-        "token",
-        res.data.token
-      );
+      localStorage.setItem("token", res.data.token);
 
       alert("Login successful");
+
+      navigate("/dashboard");
     } catch (error) {
-      console.log("LOGIN ERROR:", error);
+      console.log(error);
 
-      if (error.response) {
-        console.log("STATUS:", error.response.status);
-        console.log("FULL RESPONSE:", error.response);
-console.log("DATA:", JSON.stringify(error.response.data));
+      if (error.response?.data?.message) {
+        alert(error.response.data.message);
+      } else {
+        alert("Login failed");
       }
-
-      alert("Login failed");
     }
   };
 
@@ -64,12 +60,15 @@ console.log("DATA:", JSON.stringify(error.response.data));
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button
-        type="button"
-        onClick={handleLogin}
-      >
+      <button onClick={handleLogin}>
         Login
       </button>
+
+      <p>
+        Don't have an account?{" "}
+        <Link to="/signup">Sign Up</Link>
+      </p>
+      <h3>TEST MESSAGE</h3>
     </div>
   );
 }
