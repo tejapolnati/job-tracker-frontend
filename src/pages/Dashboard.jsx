@@ -6,6 +6,10 @@ const Dashboard = () => {
   const [jobs, setJobs] = useState([]);
 
   const navigate = useNavigate();
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  navigate("/login");
+};
 
   useEffect(() => {
     fetchJobs();
@@ -89,6 +93,34 @@ const Dashboard = () => {
       >
         Job Dashboard
       </h1>
+<div
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    gap: "10px",
+    marginBottom: "20px",
+  }}
+>
+  <button
+    onClick={() => navigate("/add-job")}
+    style={{
+      padding: "10px 20px",
+      cursor: "pointer",
+    }}
+  >
+    Add Job
+  </button>
+
+  <button
+    onClick={handleLogout}
+    style={{
+      padding: "10px 20px",
+      cursor: "pointer",
+    }}
+  >
+    Logout
+  </button>
+</div>
 
       <div
         style={{
