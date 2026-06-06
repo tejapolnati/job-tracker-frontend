@@ -124,23 +124,6 @@ const handleLogout = () => {
 
       <div
         style={{
-          textAlign: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <button
-          onClick={() => navigate("/add-job")}
-          style={{
-            padding: "10px 20px",
-            cursor: "pointer",
-          }}
-        >
-          Add Job
-        </button>
-      </div>
-
-      <div
-        style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
           gap: "20px",
